@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>FutureTech</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: url('images/bg.jpg') no-repeat center/cover;
+    color: white;
+    transition: 0.5s;
+}
+
+.light {
+    background: #f5f5f5;
+    color: black;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background: rgba(0,0,0,0.7);
+    padding: 15px;
+}
+
+nav a {
+    margin: 0 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+section {
+    display: none;
+    padding: 50px;
+    animation: fade 0.5s;
+}
+
+.active {
+    display: block;
+}
+
+@keyframes fade {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.card {
+    background: rgba(0,0,0,0.6);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 15px;
+}
+
+.light .card {
+    background: #ddd;
+}
+
+img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    background: #00ffff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+input {
+    padding: 10px;
+    margin: 10px;
+}
+</style>
+
+</head>
+
+<body onload="loadUser()">
+
+<nav>
+    <a onclick="show('home')">Главная</a>
+    <a onclick="show('tech')">Технологии</a>
+    <a onclick="show('life')">Влияние</a>
+    <a onclick="show('test')">Тест</a>
+    <a onclick="show('video')">Видео</a>
+    <a onclick="show('reg')">Регистрация</a>
+    <a onclick="toggleTheme()">🌗</a>
+</nav>
+
+<section id="home" class="active">
+<h1>Будущее технологий</h1>
+<h3 id="welcome"></h3>
+<p>
+Технологии будущего уже становятся частью нашей жизни. Искусственный интеллект, робототехника,
+умные устройства и космические разработки меняют мир и открывают новые возможности.
+</p>
+</section>
+
+<section id="tech">
+
+<div class="card">
+<h2>🤖 Роботы</h2>
+<img src="images/robot.jpg">
+<p>Роботы будущего будут помогать людям, выполнять сложные задачи и работать в опасных условиях.</p>
+</div>
+
+<div class="card">
+<h2>🏠 Умный дом</h2>
+<img src="images/home.jpg">
+<p>Умные дома позволяют управлять техникой через телефон и делают жизнь удобнее.</p>
+</div>
+
+<div class="card">
+<h2>🚀 Космос</h2>
+<img src="images/space.jpg">
+<p>Освоение космоса открывает новые возможности для человечества.</p>
+</div>
+
+</section>
+
+<section id="life">
+<div class="card">
+<h2>🏥 Медицина</h2>
+<p>Технологии помогут лечить болезни быстрее и эффективнее.</p>
+</div>
+
+<div class="card">
+<h2>📚 Образование</h2>
+<p>Обучение станет интерактивным и доступным каждому.</p>
+</div>
+
+<div class="card">
+<h2>💼 Работа</h2>
+<p>Появятся новые профессии, связанные с технологиями.</p>
+</div>
+</section>
+
+<section id="test">
+<h2>Какая технология будущего тебе подходит?</h2>
+
+<button onclick="test('A')">A — любишь анализировать</button> <button onclick="test('B')">B — любишь играть</button> <button onclick="test('C')">C — любишь космос</button>
+
+<h3 id="result"></h3>
+</section>
+
+<section id="video">
+<h2>Видео о технологиях</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2ePf9rue1Ao" allowfullscreen></iframe>
+</section>
+
+<section id="reg">
+<h2>Регистрация</h2>
+
+<input id="name" placeholder="Имя"><br> <input id="pass" type="password" placeholder="Пароль"><br>
+
+<button onclick="register()">Зарегистрироваться</button>
+
+<h3 id="msg"></h3>
+</section>
+
+<script>
+
+function show(id){
+    document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+function test(a){
+    let r = document.getElementById("result");
+    if(a==="A") r.innerText="Тебе подходит ИИ 🤖";
+    if(a==="B") r.innerText="Тебе подходит VR 🎮";
+    if(a==="C") r.innerText="Тебе подходит Космос 🚀";
+}
+
+function register(){
+    let n = document.getElementById("name").value;
+    let p = document.getElementById("pass").value;
+
+    if(n===""||p===""){
+        document.getElementById("msg").innerText="Заполни все поля!";
+        return;
+    }
+
+    localStorage.setItem("user", n);
+    document.getElementById("msg").innerText="Готово!";
+    loadUser();
+}
+
+function loadUser(){
+    let user = localStorage.getItem("user");
+    if(user){
+        document.getElementById("welcome").innerText = "Привет, " + user;
+    }
+}
+
+function toggleTheme(){
+    document.body.classList.toggle("light");
+}
+
+</script>
+
+</body>
+</html>
